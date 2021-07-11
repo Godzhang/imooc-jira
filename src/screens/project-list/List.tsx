@@ -1,7 +1,21 @@
 import React from "react";
+import { User } from "./SearchPanel";
 
-export const List = ({ users, list }) => {
-  const getUserName = (id) => {
+interface Project {
+  id: string;
+  name: string;
+  personId: string;
+  organization: string;
+  pin: string;
+}
+
+interface ListProps {
+  list: Project[];
+  users: User[];
+}
+
+export const List = ({ users, list }: ListProps) => {
+  const getUserName = (id: string) => {
     return users.find((user) => user.id === id)?.name || "未知";
   };
 
