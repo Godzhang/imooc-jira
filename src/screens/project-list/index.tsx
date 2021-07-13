@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import qs from "qs";
 import { List } from "./List";
 import { SearchPanel } from "./SearchPanel";
 import { cleanObject } from "utils";
@@ -15,11 +14,11 @@ export const ProjectListScreen = () => {
   const request = useHttp();
 
   useMount(() => {
-    request("/users").then(setUsers);
+    request("users").then(setUsers);
   });
 
   useEffect(() => {
-    request("/project", {
+    request("projects", {
       data: cleanObject(debounceParam),
     }).then(setList);
   }, [debounceParam]);

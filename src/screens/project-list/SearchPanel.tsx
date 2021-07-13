@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Form, Input, Select } from "antd";
 
 export interface User {
   id: string;
@@ -23,24 +24,24 @@ export const SearchPanel: FC<SearchPanelProps> = ({
   setParam,
 }) => {
   return (
-    <form>
-      <div>
-        <input
+    <Form>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Input
           type="text"
           value={param.name}
           onChange={(e) => setParam({ ...param, name: e.target.value })}
         />
-        <select
-          onChange={(e) => setParam({ ...param, personId: e.target.value })}
+        <Select
+          onChange={(value: string) => setParam({ ...param, personId: value })}
         >
-          <option value={""}>负责人</option>
+          <Select.Option value={""}>负责人</Select.Option>
           {users.map((user) => (
-            <option value={user.id} key={user.id}>
+            <Select.Option value={user.id} key={user.id}>
               {user.name}
-            </option>
+            </Select.Option>
           ))}
-        </select>
+        </Select>
       </div>
-    </form>
+    </Form>
   );
 };

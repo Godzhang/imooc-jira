@@ -1,0 +1,19 @@
+1. prettier
+2. husky
+3. lint-staged
+4. commitlint
+5. json-server
+6. .env / .env.development
+7. qs
+8. service worker
+9. 使用context代替redux
+10. emotion (css in js)
+11. @craco/craco
+12. String.prototype.localeCompare
+13. 当使用rem为单位时，如下设置：
+html {
+  font-size: 62.5%;
+}
+使html根节点的字号为10px，这样换算起来方便编写代码
+
+14. 
