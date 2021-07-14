@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Form, Input, Select } from "antd";
 
 export interface User {
@@ -24,14 +24,17 @@ export const SearchPanel: FC<SearchPanelProps> = ({
   setParam,
 }) => {
   return (
-    <Form>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    <Form layout="inline" style={{ marginBottom: "2rem" }}>
+      <Form.Item>
         <Input
           type="text"
           value={param.name}
           onChange={(e) => setParam({ ...param, name: e.target.value })}
         />
+      </Form.Item>
+      <Form.Item>
         <Select
+          value={param.personId}
           onChange={(value: string) => setParam({ ...param, personId: value })}
         >
           <Select.Option value={""}>负责人</Select.Option>
@@ -41,7 +44,7 @@ export const SearchPanel: FC<SearchPanelProps> = ({
             </Select.Option>
           ))}
         </Select>
-      </div>
+      </Form.Item>
     </Form>
   );
 };
