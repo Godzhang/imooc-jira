@@ -1,4 +1,4 @@
-import { Component, PropsWithChildren, ReactElement, ReactNode } from "react";
+import { Component, PropsWithChildren, ReactElement } from "react";
 
 type FallbackRender = (props: { error: Error | null }) => ReactElement;
 type IErrorBoundaryProps = PropsWithChildren<{

@@ -6,12 +6,15 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import useProject from "./useProject";
 import useUsers from "./useUser";
+import { useDocumentTitle } from "hooks/useDocumentTitle";
 
 export const ProjectListScreen = () => {
   const [param, setParam] = useState({ name: "", personId: "" });
   const debounceParam = useDebounce(param, 500);
   const { isLoading, error, data: list } = useProject(debounceParam);
   const { data: users } = useUsers();
+
+  useDocumentTitle("项目列表", false);
 
   return (
     <Container>

@@ -50,7 +50,9 @@ export const List = ({ users, ...props }: ListProps) => {
           title: "创建时间",
           key: "created",
           render(value, project) {
-            return project.created ? dayjs(value).format("YYYY-MM-DD") : "无";
+            return project.created
+              ? dayjs(project.created).format("YYYY-MM-DD")
+              : "无";
           },
         },
       ]}
