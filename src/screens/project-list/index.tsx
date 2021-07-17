@@ -8,14 +8,13 @@ import useProject from "./useProject";
 import useUsers from "./useUser";
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import { useUrlQueryParam } from "utils/url";
+import { useProjectSearchParams } from "./util";
 
 export const ProjectListScreen = () => {
-  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
-  const debounceParam = useDebounce(param, 500);
-  const { isLoading, error, data: list } = useProject(debounceParam);
-  const { data: users } = useUsers();
-
   useDocumentTitle("项目列表", false);
+  const [param, setParam] = useProjectSearchParams();
+  const { isLoading, error, data: list } = useProject(useDebounce(param, 300));
+  const { data: users } = useUsers();
 
   return (
     <Container>
