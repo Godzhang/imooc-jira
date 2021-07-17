@@ -4,6 +4,10 @@ import { Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import { ProjectListScreen } from "screens/project-list/index";
 import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
+import { Navigate, Route, Routes } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ProjectScreen } from "screens/project";
+import { resetRoute } from "utils";
 
 /**
  * grid 和 flex 各自的应用场景
@@ -17,38 +21,54 @@ import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
  */
 
 export const AuthenticatedApp = () => {
-  const { user, logout } = useAuth();
-
   return (
     <div>
       <Container>
-        <Header between={true}>
-          <HeaderLeft gap={true}>
-            <SoftwareLogo width="18rem" color="rgb(38,132,255)" />
-            <HeaderItem>项目</HeaderItem>
-            <HeaderItem>用户</HeaderItem>
-          </HeaderLeft>
-          <HeaderRight>
-            <Dropdown
-              overlay={
-                <Menu>
-                  <Menu.Item key="logout">
-                    <Button type="link" onClick={logout}>
-                      登出
-                    </Button>
-                  </Menu.Item>
-                </Menu>
-              }
-            >
-              <Button type="link">Hi, {user?.name}</Button>
-            </Dropdown>
-          </HeaderRight>
-        </Header>
+        <PageHeader></PageHeader>
         <Main>
-          <ProjectListScreen />
+          <Router>
+            <Routes>
+              <Route path="/projects" element={<ProjectListScreen />}></Route>
+              <Route
+                path="/projects/:projectId/*"
+                element={<ProjectScreen />}
+              ></Route>
+              <Navigate to="/projects" />
+            </Routes>
+          </Router>
         </Main>
       </Container>
     </div>
+  );
+};
+
+const PageHeader = () => {
+  const { user, logout } = useAuth();
+  return (
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <Button type="link" onClick={resetRoute}>
+          <SoftwareLogo width="18rem" color="rgb(38,132,255)" />
+        </Button>
+        <HeaderItem>项目</HeaderItem>
+        <HeaderItem>用户</HeaderItem>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item key="logout">
+                <Button type="link" onClick={logout}>
+                  登出
+                </Button>
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          <Button type="link">Hi, {user?.name}</Button>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
   );
 };
 
