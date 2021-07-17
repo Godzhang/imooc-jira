@@ -7,9 +7,10 @@ import { Typography } from "antd";
 import useProject from "./useProject";
 import useUsers from "./useUser";
 import { useDocumentTitle } from "hooks/useDocumentTitle";
+import { useUrlQueryParam } from "utils/url";
 
 export const ProjectListScreen = () => {
-  const [param, setParam] = useState({ name: "", personId: "" });
+  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
   const debounceParam = useDebounce(param, 500);
   const { isLoading, error, data: list } = useProject(debounceParam);
   const { data: users } = useUsers();
@@ -27,6 +28,8 @@ export const ProjectListScreen = () => {
     </Container>
   );
 };
+
+ProjectListScreen.whyDidYouRender = false;
 
 const Container = styled.div`
   padding: 3.2rem;
