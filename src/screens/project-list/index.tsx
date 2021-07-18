@@ -4,7 +4,7 @@ import { SearchPanel } from "./SearchPanel";
 import useDebounce from "hooks/useDebounce";
 import styled from "@emotion/styled";
 import { Typography } from "antd";
-import useProject from "./useProject";
+import { useProject } from "./useProject";
 import useUsers from "./useUser";
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import { useUrlQueryParam } from "utils/url";
@@ -13,7 +13,12 @@ import { useProjectSearchParams } from "./util";
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false);
   const [param, setParam] = useProjectSearchParams();
-  const { isLoading, error, data: list } = useProject(useDebounce(param, 300));
+  const {
+    isLoading,
+    error,
+    data: list,
+    retry,
+  } = useProject(useDebounce(param, 300));
   const { data: users } = useUsers();
 
   return (
@@ -23,7 +28,12 @@ export const ProjectListScreen = () => {
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
       ) : null}
-      <List loading={isLoading} users={users || []} dataSource={list || []} />
+      <List
+        refresh={retry}
+        loading={isLoading}
+        users={users || []}
+        dataSource={list || []}
+      />
     </Container>
   );
 };

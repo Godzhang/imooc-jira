@@ -3,27 +3,46 @@ import { User } from "./SearchPanel";
 import { Table, TableProps } from "antd";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+import { Pin } from "components/Pin";
+import { useEditProject } from "./useProject";
 
 export interface Project {
   id: number;
   name: string;
   personId: number;
   organization: string;
-  pin: string;
+  pin: boolean;
   created: number;
   key: string;
 }
 
 interface ListProps extends TableProps<Project> {
   users: User[];
+  refresh: () => void;
 }
 
 export const List = ({ users, ...props }: ListProps) => {
+  const { mutate } = useEditProject();
+  const pinProject = (id: number) => (pin: boolean) => {
+    mutate({ id, pin }).then(props.refresh);
+  };
+
   return (
     <Table
       pagination={false}
       rowKey="id"
       columns={[
+        {
+          title: <Pin checked={true} disabled={true}></Pin>,
+          render(value, project) {
+            return (
+              <Pin
+                checked={project.pin}
+                onCheckedChange={pinProject(project.id)}
+              ></Pin>
+            );
+          },
+        },
         {
           title: "名称",
           dataIndex: "name",
