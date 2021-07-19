@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { List } from "./List";
 import { SearchPanel } from "./SearchPanel";
 import useDebounce from "hooks/useDebounce";
@@ -7,7 +6,6 @@ import { Typography } from "antd";
 import { useProject } from "./useProject";
 import useUsers from "./useUser";
 import { useDocumentTitle } from "hooks/useDocumentTitle";
-import { useUrlQueryParam } from "utils/url";
 import { useProjectSearchParams } from "./util";
 
 export const ProjectListScreen = () => {
