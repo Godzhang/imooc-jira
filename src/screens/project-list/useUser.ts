@@ -14,8 +14,7 @@ const useUsers = (param?: Partial<User>) => {
         data: cleanObject(param || {}),
       })
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param]);
+  }, [param, request, run]);
 
   return result;
 };
