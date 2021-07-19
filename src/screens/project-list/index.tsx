@@ -7,8 +7,14 @@ import { useProject } from "./useProject";
 import useUsers from "./useUser";
 import { useDocumentTitle } from "hooks/useDocumentTitle";
 import { useProjectSearchParams } from "./util";
+import { Row } from "components/lib";
+import { FC } from "react";
 
-export const ProjectListScreen = () => {
+interface IProjectListScreenProps {
+  projectButton: JSX.Element;
+}
+
+export const ProjectListScreen: FC<IProjectListScreenProps> = (props) => {
   useDocumentTitle("项目列表", false);
   const [param, setParam] = useProjectSearchParams();
   const {
@@ -21,7 +27,11 @@ export const ProjectListScreen = () => {
 
   return (
     <Container>
-      <h1>项目列表</h1>
+      <Row between={true}>
+        <h1>项目列表</h1>
+        {props.projectButton}
+      </Row>
+
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type="danger">{error.message}</Typography.Text>
@@ -31,12 +41,13 @@ export const ProjectListScreen = () => {
         loading={isLoading}
         users={users || []}
         dataSource={list || []}
+        projectButton={props.projectButton}
       />
     </Container>
   );
 };
 
-ProjectListScreen.whyDidYouRender = false;
+// ProjectListScreen.whyDidYouRender = false;
 
 const Container = styled.div`
   padding: 3.2rem;
